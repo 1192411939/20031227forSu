@@ -13,7 +13,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; background: var(--bg); }
 body {
   margin: 0;
   background: var(--bg);
@@ -664,5 +664,166 @@ time { display: block; margin-bottom: 12px; font-family: var(--serif); font-size
     color: rgba(20,20,18,.7);
     font-size: 12px;
     white-space: nowrap;
+  }
+}
+
+/* Final deployment fixes */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: var(--bg) !important;
+    color: var(--ink) !important;
+  }
+  .site-header,
+  .mobile-rail {
+    background: rgba(247,245,238,.88) !important;
+  }
+}
+
+@media (min-width: 861px) {
+  .project.split,
+  .project.reverse,
+  .project.editorial {
+    align-items: start;
+  }
+  .mosaic,
+  .mosaic.dense {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    align-items: start;
+    gap: 16px;
+  }
+  .mosaic img,
+  .mosaic .wide,
+  .mosaic .tall {
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    grid-row: auto !important;
+  }
+  .mosaic .wide {
+    grid-column: 1 / -1;
+  }
+  .editorial-images {
+    align-items: start;
+  }
+  .editorial-images img:first-child,
+  .editorial-images img:not(:first-child),
+  .filmstrip img,
+  .gallery img {
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+  }
+}
+
+/* Keep project 04 visually stable on desktop */
+@media (min-width: 861px) {
+  .project.reverse {
+    grid-template-columns: .42fr .9fr !important;
+  }
+  .project.reverse .project-meta {
+    order: 0 !important;
+  }
+  .project.reverse .mosaic {
+    order: 0 !important;
+  }
+}
+
+/* Mobile project action polish */
+@media (max-width: 860px) {
+  .project-meta {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    align-items: baseline;
+    padding: 18px 0 2px !important;
+  }
+
+  .project-number {
+    grid-column: 1;
+    margin: 0 !important;
+  }
+
+  .project-meta h2 {
+    grid-column: 2;
+    margin: 0 !important;
+    vertical-align: 0;
+  }
+
+  .project-meta .text-link {
+    grid-column: 1 / -1;
+    justify-self: start;
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px solid rgba(20,20,18,.24);
+    border-radius: 999px;
+    background: rgba(255,255,255,.46) !important;
+    color: rgba(20,20,18,.82) !important;
+    box-shadow: 0 8px 22px rgba(20,20,18,.07);
+  }
+
+  .project-meta .password-note {
+    grid-column: 1 / -1;
+    justify-self: start;
+    width: auto;
+    margin: 0;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid rgba(20,20,18,.18);
+    border-radius: 999px;
+    background: rgba(200,255,47,.28) !important;
+    color: rgba(20,20,18,.78) !important;
+    font-size: 12px;
+  }
+}
+
+/* Fix mobile project header/image stacking */
+@media (max-width: 860px) {
+  .project,
+  .project.feature,
+  .project.split,
+  .project.reverse,
+  .project.editorial,
+  .project.final-project {
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+
+  .project > .project-meta {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .project > .mobile-project-cover,
+  .project > .gallery,
+  .project > .mosaic,
+  .project > .editorial-images,
+  .project > .filmstrip {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    position: relative;
+    z-index: 0;
+  }
+
+  .project > .mobile-project-cover {
+    margin-top: 4px;
+  }
+
+  .project.feature .mobile-project-cover {
+    order: 2;
+  }
+
+  .project.feature .gallery {
+    order: 3;
   }
 }
